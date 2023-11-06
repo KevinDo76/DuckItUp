@@ -2,11 +2,9 @@
 #include "mapManager.h"
 #include "SFML/Graphics.hpp"
 #include <iostream>
-#define DRAW_DEBUG 0
+#define DRAW_DEBUG 1
 #include <bitset>
-Entity::Entity(float posX, float posY, int sX, int sY, textureAsset& textureA) : posX(posX), posY(posY), sizeX(sX), sizeY(sY), velX(0), velY(0), boundX(sizeX-2), boundY(sizeY - 2), offsetBoundX(1), offsetBoundY(1), collidableWithMap(true), mapCollisionSubject(nullptr), textureSet(&textureA), textureID(0) {
-
-}
+Entity::Entity(float posX, float posY, int sX, int sY, textureAsset& textureA) : posX(posX), posY(posY), sizeX(sX), sizeY(sY), velX(0), velY(0), boundX(sizeX-2), boundY(sizeY - 2), offsetBoundX(1), offsetBoundY(1), collidableWithMap(true), mapCollisionSubject(nullptr), textureSet(&textureA), textureID(0) {}
 
 Entity::~Entity() {}
 
@@ -41,10 +39,13 @@ void Entity::renderSelf(sf::RenderWindow& win) {
 
 }
 
-void Entity::computePhysic(float elapsedTime, mapManager& physicAgainst, sf::RenderWindow& window) {
-	if (velX == 0 && velY == 0) return;
+void Entity::resolveVelocity(float elapsedTime) {
 	posX += velX * elapsedTime;
 	posY += velY * elapsedTime;
+}
+
+void Entity::resolveCollisionWithMap(float elapsedTime, mapManager& physicAgainst, sf::RenderWindow& window) {
+	if (velX == 0 && velY == 0) return;
 	if (!collidableWithMap) return;
 	int collideCheckIndex[9];
 
@@ -102,6 +103,15 @@ void Entity::computePhysic(float elapsedTime, mapManager& physicAgainst, sf::Ren
 			}
 		}
 	}
+}
+
+void Entity::resolveCollisionWithEntity(float elapsedTime, Entity& physicAgainst, sf::RenderWindow& window) {
+
+}
+
+void Entity::computePhysic(float elapsedTime, mapManager& physicAgainst, sf::RenderWindow& window) {
+	resolveVelocity(elapsedTime);
+	resolveCollisionWithMap(elapsedTime, physicAgainst, window);
 }
 
 bool Entity::RayAgainstRectCollision(const sf::FloatRect Rect, const sf::Vector2f rayOrigin, const sf::Vector2f rayDirection, sf::Vector2f& faceNormal, sf::Vector2f& contactPoint, float& sc) {

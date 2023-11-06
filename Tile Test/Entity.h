@@ -29,7 +29,10 @@ public:
 	Entity(float posX, float posY, int sX, int sY, textureAsset& textureA);
 	~Entity();
 
+	void resolveCollisionWithMap(float elapsedTime, mapManager& physicAgainst, sf::RenderWindow& window);
+	void resolveCollisionWithEntity(float elapsedTime, Entity& physicAgainst, sf::RenderWindow& window);
 	void computePhysic(float elapsedTime, mapManager& physicAgainst, sf::RenderWindow& window);
+	void resolveVelocity(float elapsedTime);
 
 	void renderSelf(sf::RenderWindow& win);
 private:

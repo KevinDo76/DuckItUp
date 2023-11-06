@@ -13,7 +13,7 @@ int main()
 {
     auto start = std::chrono::system_clock::now();
     float lastElapse = 0;
-    sfmlPanZoomHandler winObj(sf::VideoMode(WORLD_RES_X, WORLD_RES_Y), "Tile Engine");
+    sfmlPanZoomHandler winObj(sf::VideoMode(WORLD_RES_X, WORLD_RES_Y), "Time to Duck It Up!");
 
     //frame time counter
     sf::View UIView;
@@ -109,7 +109,7 @@ int main()
         if (sf::Keyboard().isKeyPressed(sf::Keyboard::Down)) {
             tempVY += 1;
         }
-        //determin the current animation
+        //determine the current animation
         if (tempVX == 1) {
             Duck.textureID = (int)(timeNow * 5) % 2 + 7;
             gun.textureID = 1;
@@ -144,6 +144,7 @@ int main()
         winObj.view.setCenter(sf::Vector2f(Duck.posX + Duck.sizeX / 2, Duck.posY + Duck.sizeY / 2));
 
         for (int i = 0; i < 5; i++) {
+            enemies[i].textureID = int(timeNow * 5) % 3;
             enemies[i].renderSelf(winObj.window);
         }
 

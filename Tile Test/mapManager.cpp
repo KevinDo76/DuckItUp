@@ -22,7 +22,7 @@ T clamp(T n, T min, T max) {
 	}
 }
 
-mapManager::mapManager(int x, int y, int sx, int sy) : sizeX(x), sizeY(y), scaleX(sx), scaleY(sy), posX(0), posY(0), textureSet(nullptr), textureAssetLoaded(false) {
+mapManager::mapManager(const int x,const int y,const int sx,const int sy) : sizeX(x), sizeY(y), scaleX(sx), scaleY(sy), posX(0), posY(0), textureSet(nullptr), textureAssetLoaded(false) {
 	//this->textureSet = &this->defaultAsset;
 	sf::Image nullImage = sf::Image();
 	nullImage.create(sx, sy, sf::Color(255, 0, 255));
@@ -78,7 +78,7 @@ void mapManager::getMouseWorldCoord(sf::RenderWindow& window, sf::Vector2f& worl
 	worldCoord.y = mouseWorldCoord.y;
 }
 
-void mapManager::getCurrentTile(sf::Vector2f worldCoord, sf::Vector2i& tileCoord) {
+void mapManager::getCurrentTile(const sf::Vector2f worldCoord, sf::Vector2i& tileCoord) {
 	int tileY = int((worldCoord.y - this->posY) / this->scaleY);
 	int tileX = int((worldCoord.x - this->posX) / this->scaleX);
 	if (worldCoord.x < this->posX) { tileX--; }
@@ -87,7 +87,7 @@ void mapManager::getCurrentTile(sf::Vector2f worldCoord, sf::Vector2i& tileCoord
 	tileCoord.y = tileY;
 }
 
-int mapManager::getCurrentTileIndexPosition(sf::RenderWindow& window, sf::Vector2f position) {
+int mapManager::getCurrentTileIndexPosition(sf::RenderWindow& window, const sf::Vector2f position) {
 	sf::Vector2i tileCoord;
 	this->getCurrentTile(position, tileCoord);
 	int tileIndex = (tileCoord.y * this->sizeX + tileCoord.x);
@@ -133,7 +133,7 @@ bool mapManager::isTextureAssetLoaded() {
 /// <param name="path"></param>
 /// <returns></returns>
 
-bool mapManager::loadDataIntoTile(std::string path) {
+bool mapManager::loadDataIntoTile(const std::string path) {
 	std::string line;
 	// Read from the text file
 	std::ifstream dataFile;
@@ -159,7 +159,7 @@ bool mapManager::loadDataIntoTile(std::string path) {
 	return true;
 }
 
-bool mapManager::saveTileIntoFile(std::string path) {
+bool mapManager::saveTileIntoFile(const std::string path) {
 	std::ofstream fileSave;
 	fileSave.open(path);
 	if (!fileSave) {
@@ -174,7 +174,7 @@ bool mapManager::saveTileIntoFile(std::string path) {
 	return true;
 }
 
-void mapManager::setPosition(float px, float py) {
+void mapManager::setPosition(const float px,const float py) {
 	posX = px;
 	posY = py;
 	for (int i = 0; i < this->tiles.size(); i++) {

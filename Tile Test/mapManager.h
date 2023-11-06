@@ -43,16 +43,15 @@ public:
 	mapManager(int x, int y, int sx, int sy);
 	~mapManager();
 
-	void buildTextureCache();
-	void getMouseWorldCoord(sf::RenderWindow& window, sf::Vector2f& worldCoord);
+	static void getMouseWorldCoord(sf::RenderWindow& window, sf::Vector2f& worldCoord);
 	int getCurrentTileIndexMouse(sf::RenderWindow& window);
-	int getCurrentTileIndexPosition(sf::RenderWindow& window, sf::Vector2f pos);
-	void getCurrentTile(sf::Vector2f worldCoord, sf::Vector2i& tileCoord);
+	int getCurrentTileIndexPosition(sf::RenderWindow& window,const sf::Vector2f pos);
+	void getCurrentTile(const sf::Vector2f worldCoord, sf::Vector2i& tileCoord);
 	bool loadTextureAsset(textureAsset& texture);
-	bool loadDataIntoTile(std::string path);
-	bool saveTileIntoFile(std::string path);
+	bool loadDataIntoTile(const std::string path);
+	bool saveTileIntoFile(const std::string path);
 	bool isTextureAssetLoaded();
-	void setPosition(float px, float py);
+	void setPosition(const float px,const float py);
 
 	void draw(sf::RenderWindow& window);
 private:
