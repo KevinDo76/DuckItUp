@@ -63,7 +63,7 @@ void mapManager::draw(sf::RenderWindow& window) {
 					if (!tiles[y].collidable) {
 						continue;
 					}
-					//tiles[y].drawBoundBox(window, sf::Color(255,0,0));
+					tiles[y].drawBoundBox(window, sf::Color(255,0,0));
 				}
 				firstTileY += this->scaleY;
 			}

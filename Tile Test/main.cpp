@@ -22,13 +22,13 @@ int main()
     frameTime.setCharacterSize(20);
     frameTime.setStyle(sf::Text::Regular);
 
-    mapManager map = mapManager(20,20,16, 16);
-    textureAsset mainMap = textureAsset(16, 16, 10);
-    textureAsset characterTexture = textureAsset(10, 10, 1);
+    mapManager map = mapManager(25,25,32, 32);
+    textureAsset mainMap = textureAsset(32, 32, 5);
+    textureAsset characterTexture = textureAsset(32, 32, 1);
     characterTexture.loadTextureMap("C:\\Users\\Owner\\Pictures\\daniel.png");
-    mainMap.loadTextureMap("test.png");
+    mainMap.loadTextureMap("maptiles.png");
 
-    Entity testEnt{ 200, 20, 10, 10, characterTexture };
+    Entity testEnt{ 200, 20, 32, 32, characterTexture };
     map.loadTextureAsset(mainMap);
     sf::Clock Clock;
 

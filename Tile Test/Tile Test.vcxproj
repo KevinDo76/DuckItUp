@@ -137,7 +137,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="mapManager.cpp" />
     <ClCompile Include="sfmlPanZoomHandler.cpp" />
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="textureAsset.cpp" />
   </ItemGroup>
   <ItemGroup>
