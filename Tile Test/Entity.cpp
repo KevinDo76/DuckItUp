@@ -2,7 +2,7 @@
 #include "mapManager.h"
 #include "SFML/Graphics.hpp"
 #include <iostream>
-#define DRAW_DEBUG 1
+#define DRAW_DEBUG 0
 #include <bitset>
 Entity::Entity(float posX, float posY, int sX, int sY, textureAsset& textureA) : posX(posX), posY(posY), sizeX(sX), sizeY(sY), velX(0), velY(0), boundX(sizeX-2), boundY(sizeY - 2), offsetBoundX(1), offsetBoundY(1), collidableWithMap(true), mapCollisionSubject(nullptr), textureSet(&textureA), textureID(0) {
 

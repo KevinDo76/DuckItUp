@@ -7,6 +7,7 @@
 #include <cmath>
 #include <cmath>
 #define SPRITE_MAP_MAX_WIDTH 25
+#define DRAW_DEBUG 0
 
 template<typename T>
 T clamp(T n, T min, T max) {
@@ -60,10 +61,9 @@ void mapManager::draw(sf::RenderWindow& window) {
 			for (int y = x; y < yMax; y += this->sizeX) {
 				if (firstTileY > leftTopBound.y - this->scaleY && firstTileY < leftBottomBound.y) {
 					window.draw(tiles[y].sprite);
-					if (!tiles[y].collidable) {
-						continue;
+					if (tiles[y].collidable && DRAW_DEBUG) {
+						tiles[y].drawBoundBox(window, sf::Color(255, 0, 0));
 					}
-					tiles[y].drawBoundBox(window, sf::Color(255,0,0));
 				}
 				firstTileY += this->scaleY;
 			}
