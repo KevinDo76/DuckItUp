@@ -46,7 +46,7 @@ int main()
     sf::Clock Clock;
 
     //settings
-    winObj.window.setFramerateLimit(200);
+    winObj.window.setFramerateLimit(240);
     map.loadDataIntoTile("save.txt");
 
     //initialize enemies
@@ -94,32 +94,45 @@ int main()
         Duck.velY = 0;
         float tempVX = 0;
         float tempVY = 0;
-        if (sf::Keyboard().isKeyPressed(sf::Keyboard::Up)) {
-            tempVY -= 100;
-            Duck.textureID = (int)(timeNow * 5) % 2 + 3;
-            gun.textureID = 2;
-
-        } else if (sf::Keyboard().isKeyPressed(sf::Keyboard::Down)) {
-            tempVY += 100;
-            Duck.textureID = (int)(timeNow * 5) % 2 + 1;
-            gun.textureID = 3;
+        Duck.textureID = 0;
+        gun.textureID = 1;
+        //computing direction
+        if (sf::Keyboard().isKeyPressed(sf::Keyboard::Left)) {
+            tempVX -= 1;
         }
-        else if (sf::Keyboard().isKeyPressed(sf::Keyboard::Left)) {
-            tempVX -= 100;
-            Duck.textureID = (int)(timeNow * 5) % 2 + 5;
-            gun.textureID = 0;
-        } else if (sf::Keyboard().isKeyPressed(sf::Keyboard::Right)) {
-            tempVX += 100;
+        if (sf::Keyboard().isKeyPressed(sf::Keyboard::Right)) {
+            tempVX += 1;
+        }
+        if (sf::Keyboard().isKeyPressed(sf::Keyboard::Up)) {
+            tempVY -= 1;
+        }
+        if (sf::Keyboard().isKeyPressed(sf::Keyboard::Down)) {
+            tempVY += 1;
+        }
+        //determin the current animation
+        if (tempVX == 1) {
             Duck.textureID = (int)(timeNow * 5) % 2 + 7;
             gun.textureID = 1;
         }
-        else {
-            Duck.textureID = 0;
-            gun.textureID = 1;
+        else if (tempVX == -1) {
+            Duck.textureID = (int)(timeNow * 5) % 2 + 5;
+            gun.textureID = 0;
         }
 
-        Duck.velX = tempVX;
-        Duck.velY = tempVY;
+        if (tempVY == 1) {
+            Duck.textureID = (int)(timeNow * 5) % 2 + 1;
+            gun.textureID = 3;
+        }
+        else if (tempVY == -1) {
+            Duck.textureID = (int)(timeNow * 5) % 2 + 3;
+            gun.textureID = 2;
+        }
+        //normalizing direction
+        float L = std::sqrtf(tempVX * tempVX + tempVY * tempVY);
+        if (L != 0) {
+            Duck.velX = tempVX / L * 100.f;
+            Duck.velY = tempVY / L * 100.f;
+        }
 
         winObj.window.clear();
         map.draw(winObj.window);
