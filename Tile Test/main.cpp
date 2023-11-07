@@ -31,16 +31,19 @@ int main()
     textureAsset gunTexture = textureAsset(32, 32, 5);
     textureAsset characterTexture = textureAsset(32, 32, 5);
     textureAsset enemyTexture = textureAsset(32, 32, 5);
+    textureAsset bulletTexture = textureAsset(8, 8, 1);
 
     //loading textures
     characterTexture.loadTextureMap("ducktiles.png");
     mainMap.loadTextureMap("maptiles.png");
     gunTexture.loadTextureMap("gun.png");
     enemyTexture.loadTextureMap("enemytile.png");
+    bulletTexture.loadTextureMap("bullet.png");
 
     //applying textures
     Entity Duck{ 200, 40, 32, 32, characterTexture };
     Entity gun{ 200, 40, 32, 32, gunTexture };
+    std::vector<Entity> bullet;
     std::vector<Entity> enemies;
     map.loadTextureAsset(mainMap);
     sf::Clock Clock;
@@ -51,7 +54,6 @@ int main()
 
     //initialize enemies
     for (int i = 0; i < 5; i++) {
-        std::cout << rand() << "\n";
         enemies.push_back({ (rand()/(float)RAND_MAX * 736.f + 50.f), (rand() / (float)RAND_MAX * 736.f + 50.f), 32,32, enemyTexture });
     }
 
@@ -90,8 +92,6 @@ int main()
             winObj.handleEventPanZoom();
         }
 
-        Duck.velX = 0;
-        Duck.velY = 0;
         float tempVX = 0;
         float tempVY = 0;
         Duck.textureID = 0;
@@ -141,16 +141,16 @@ int main()
         gun.posX = Duck.posX;
         gun.posY = Duck.posY-14 - (std::sinf(timeNow * 13));
 
-        winObj.view.setCenter(sf::Vector2f(Duck.posX + Duck.sizeX / 2, Duck.posY + Duck.sizeY / 2));
-
         for (int i = 0; i < 5; i++) {
             enemies[i].textureID = int(timeNow * 5) % 3;
             enemies[i].renderSelf(winObj.window);
+            Duck.resolveCollisionWithEntity(lastElapse, enemies[i], map, winObj.window);
         }
+
 
         Duck.renderSelf(winObj.window);
         gun.renderSelf(winObj.window);
-
+        winObj.view.setCenter(sf::Vector2f(Duck.posX + Duck.sizeX / 2, Duck.posY + Duck.sizeY / 2));
         winObj.window.setView(UIView);
         winObj.window.draw(frameTime);
         winObj.window.setView(winObj.view);
