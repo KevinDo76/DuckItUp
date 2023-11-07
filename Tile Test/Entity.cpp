@@ -115,7 +115,7 @@ void Entity::resolveCollisionWithMap(float elapsedTime, mapManager& physicAgains
 /// <param name="window"></param>
 /// <param name="SoftCollisionResponse"></param>
 
-void Entity::resolveCollisionWithEntity(float elapsedTime, Entity& physicAgainst ,mapManager mapPhysicAgainst, sf::RenderWindow& window, bool SoftCollisionResponse) {
+void Entity::resolveCollisionWithEntity(float elapsedTime, Entity& physicAgainst ,mapManager& mapPhysicAgainst, sf::RenderWindow& window, bool SoftCollisionResponse) {
 	if (!SoftCollisionResponse) {
 		float dirX = velX * elapsedTime;
 		float dirY = velY * elapsedTime;

@@ -53,7 +53,7 @@ int main()
     map.loadDataIntoTile("save.txt");
 
     //initialize enemies
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 20; i++) {
         enemies.push_back({ (rand()/(float)RAND_MAX * 736.f + 50.f), (rand() / (float)RAND_MAX * 736.f + 50.f), 32,32, enemyTexture });
     }
 
@@ -141,7 +141,7 @@ int main()
         gun.posX = Duck.posX;
         gun.posY = Duck.posY-14 - (std::sinf(timeNow * 13));
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < enemies.size(); i++) {
             enemies[i].textureID = int(timeNow * 5) % 3;
             enemies[i].renderSelf(winObj.window);
             Duck.resolveCollisionWithEntity(lastElapse, enemies[i], map, winObj.window);

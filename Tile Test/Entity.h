@@ -30,7 +30,7 @@ public:
 	~Entity();
 
 	void resolveCollisionWithMap(float elapsedTime, mapManager& physicAgainst, sf::RenderWindow& window);
-	void resolveCollisionWithEntity(float elapsedTime, Entity& physicAgainst, mapManager mapPhysicAgainst, sf::RenderWindow& window, bool SoftCollisionResponse = true);
+	void resolveCollisionWithEntity(float elapsedTime, Entity& physicAgainst, mapManager& mapPhysicAgainst, sf::RenderWindow& window, bool SoftCollisionResponse = true);
 	void computePhysic(float elapsedTime, mapManager& physicAgainst, sf::RenderWindow& window, bool resetVelocity = true);
 	void resolveVelocity(float elapsedTime);
 
