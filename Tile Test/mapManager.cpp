@@ -7,7 +7,7 @@
 #include <cmath>
 #include <cmath>
 #define SPRITE_MAP_MAX_WIDTH 25
-#define DRAW_DEBUG 0
+#define DRAW_DEBUG 1
 
 template<typename T>
 T clamp(T n, T min, T max) {

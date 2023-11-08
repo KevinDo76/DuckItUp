@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -138,10 +138,12 @@
     <ClCompile Include="mapManager.cpp" />
     <ClCompile Include="sfmlPanZoomHandler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="DuckItUpEntities.cpp" />
     <ClCompile Include="textureAsset.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="DuckItUpEntities.h" />
     <ClInclude Include="mapManager.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="sfmlPanZoomHandler.h" />

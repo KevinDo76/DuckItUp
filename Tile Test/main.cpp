@@ -159,7 +159,6 @@ int main()
         //fps calc
         sf::Time Time = Clock.getElapsedTime();
         lastElapse = Time.asMicroseconds() / 1000000.f;
-
         Clock.restart();
         //std::cout << Time.asMilliseconds() << "ms/16.6ms ideal\n";
         std::stringstream frameTimeText;
