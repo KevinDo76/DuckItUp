@@ -3,6 +3,7 @@
 #include "textureAsset.h"
 #include "sfmlPanZoomHandler.h"
 #include "Entity.h"
+#include "DuckItUpEntities.h"
 #include <sstream>
 #include <iostream>
 #include <cmath>
@@ -43,7 +44,7 @@ int main()
     //applying textures
     Entity Duck{ 200, 40, 32, 32, characterTexture };
     Entity gun{ 200, 40, 32, 32, gunTexture };
-    std::vector<Entity> bullet;
+    std::vector<bulletObj> bullets;
     std::vector<Entity> enemies;
     map.loadTextureAsset(mainMap);
     sf::Clock Clock;
@@ -63,10 +64,8 @@ int main()
         while (winObj.window.pollEvent(winObj.event)) {
             if (winObj.window.hasFocus() && map.isTextureAssetLoaded()) {
                 if (winObj.event.type == sf::Event::MouseButtonPressed && winObj.event.mouseButton.button == sf::Mouse::Button::Left) {
-                    int index = map.getCurrentTileIndexMouse(winObj.window);
-                    if (index >= 0) {
-                        //map.tiles[index].updateTextureID((map.tiles[index].textureID + 1) % mainMap.getSize());
-                    }
+                    bullets.push_back(bulletObj(Duck.posX, Duck.posY, 8, 8, bulletTexture));
+                    bullets[bullets.size() - 1].computeBulletDir(gun, winObj.window);
                 }
                 else if (winObj.event.type == sf::Event::MouseButtonPressed && winObj.event.mouseButton.button == sf::Mouse::Button::Right) {
                     int index = map.getCurrentTileIndexMouse(winObj.window);
@@ -147,6 +146,16 @@ int main()
             Duck.resolveCollisionWithEntity(lastElapse, enemies[i], map, winObj.window);
         }
 
+        for (int i = 0; i < bullets.size(); i++) {
+            bullets[i].computePhysic(lastElapse, map, winObj.window, false);
+            bullets[i].renderSelf(winObj.window);
+            bullets[i].timeLeft -= lastElapse;
+        }
+
+        //remove/erase idiom
+        bullets.erase(std::remove_if(bullets.begin(), bullets.end(), [](bulletObj val) { return val.timeLeft<=0 ; }), bullets.end());
+        bullets.shrink_to_fit();
+        //https://en.wikipedia.org/wiki/Erase%E2%80%93remove_idiom
 
         Duck.renderSelf(winObj.window);
         gun.renderSelf(winObj.window);
